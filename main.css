@@ -17,13 +17,19 @@ h1 {
     color: white;
     font-weight: bold;
     text-shadow: 1px 1px 5px black;
-    border-bottom: 2px dotted white;
+    border-bottom: 2px dotted white;    
 }
 
 a {
     text-decoration: none;
     color:rgb(116, 138, 108);
     text-shadow: 1px 1px 5px rgb(255, 255, 255);
+    transition: color 400ms;
+}
+
+a:hover {
+    color: white;
+    text-shadow: 1px 1px 5px rgb(0, 0, 0);    
 }
 
 header h2 {
@@ -43,7 +49,7 @@ h2 {
 
 body {
     height: 100vh;
-    min-width: 340px;
+    min-width: 350px;
     font-family: 'Lucida Sans';
     margin-bottom: 40px;
 }
@@ -112,6 +118,36 @@ button:hover {
     color: red;
 }
 
+
+@keyframes aMov {
+    25% {        
+        transform: rotate(15deg);
+    }
+
+    50% {
+        transform: rotate(0);
+    }
+
+    75% {
+        transform: rotate(-15deg);
+    }
+
+    100% {
+        transform: rotate(0);
+    }
+}
+
+.anchorMagic {    
+    animation-name: aMov;
+    animation-duration: 400ms;
+    animation-iteration-count: infinite;    
+    animation-delay: 5s;
+}
+
+h1 p{
+    display: inline-block;
+}
+
 @keyframes fotosMov {
     from {
         opacity: 0;
@@ -130,29 +166,10 @@ button:hover {
     animation-name: fotosMov;
     animation-duration: 300ms;
     animation-timing-function: ease-out;
-    box-shadow: 1px 1px 5px 2px;
+    border: 1px solid white;
+    box-shadow: 1px 1px 5px 1px;
     border-radius: 10px;
 }
-
-
-/* @keyframes fotosMov2 {
-    from {
-        opacity: 1;
-        translate: 0 0;
-    }
-
-    to {
-        opacity: 0;
-        translate: -1000px 0;
-    }
-
-}
-
-.magic2 {
-    animation-name: fotosMov2;
-    animation-duration: 500ms;
-    animation-timing-function: ease-in-out;
-} */
 
 
 @media screen and (min-width:430px) {

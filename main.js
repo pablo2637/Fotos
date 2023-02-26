@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
     urlBase = './viajes/';
 
+    
     /*EVENTOS*/
     divTags.addEventListener('click', ({ target }) => {
         if (target.matches('BUTTON')) {
@@ -24,8 +25,9 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
 
-
     /*FUNCIONES*/
+
+    /*Crea el array con las palabras claves*/
     const buscarTags = async () => {
         const arrayTags = [];
         arrayImagenes.forEach(({ tags }) => {
@@ -93,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
     /*Muestra las imagenes que tienen un tag concreto*/
     const mostrarImagenes = async (tag) => {
         try {
-            
+
             const arrayImgs = await buscarImgTags(tag);
             crearImagenes(arrayImgs);
 
