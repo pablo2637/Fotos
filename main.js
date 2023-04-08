@@ -14,33 +14,38 @@ document.addEventListener("DOMContentLoaded", () => {
         { url: 'viajes-6.jpg', titulo: 'Destino 6', alt: 'Imagen 6', tags: ['Agua', 'Nubes', 'Montañas', 'Farolas'] },
         { url: 'viajes-7.jpg', titulo: 'Destino 7', alt: 'Imagen 7', tags: ['Cielo Despejado', 'Montañas', 'Ciudad',] }
     ];
-    urlBase = './viajes/';
 
-    
+    urlBase = 'viajes/';
+
+
     /*EVENTOS*/
     divTags.addEventListener('click', ({ target }) => {
-        if (target.matches('BUTTON')) {
+
+        if (target.matches('BUTTON'))
             mostrarImagenes(target.textContent);
-        }
-    })
+
+    });
 
 
     /*FUNCIONES*/
 
     /*Crea el array con las palabras claves*/
     const buscarTags = async () => {
+
         const arrayTags = [];
+
         arrayImagenes.forEach(({ tags }) => {
-            tags.forEach(tag => {
-                if (!arrayTags.includes(tag)) arrayTags.push(tag);
-            })
-        })
+
+            tags.forEach(tag => !arrayTags.includes(tag) ? arrayTags.push(tag) : '');
+        });
+
         return arrayTags;
-    }
+    };
 
 
     /*Crea los botones*/
     const crearBotones = tags => {
+
         const fragment = document.createDocumentFragment();
 
         /*Crea botón COSA*/
@@ -49,10 +54,12 @@ document.addEventListener("DOMContentLoaded", () => {
         fragment.append(btnCosa);
 
         tags.forEach(tag => {
+
             const btnTag = document.createElement("BUTTON");
             btnTag.textContent = tag;
             fragment.append(btnTag);
-        })
+
+        });
 
         /*Crea otro botón COSA*/
         const btnCosa2 = document.createElement("BUTTON");
@@ -60,25 +67,32 @@ document.addEventListener("DOMContentLoaded", () => {
         fragment.append(btnCosa2);
 
         divTags.append(fragment);
-    }
+    };
 
 
     /*Busca las imagenes que tienen un tag concrecto*/
     const buscarImgTags = async (tag) => {
+
         const arrayImgs = [];
+
         arrayImagenes.forEach(img => {
-            if (img.tags.includes(tag)) {
+
+            if (img.tags.includes(tag))
                 arrayImgs.push(img);
-            }
-        })
+
+        });
+
         return arrayImgs;
-    }
+    };
 
 
     /*Crea las imagenes*/
     const crearImagenes = imagenes => {
+
         const fragment = document.createDocumentFragment();
+
         imagenes.forEach(img => {
+
             const imgTag = document.createElement("IMG");
             imgTag.src = urlBase + img.url;
             imgTag.title = img.titulo;
@@ -86,45 +100,52 @@ document.addEventListener("DOMContentLoaded", () => {
             imgTag.classList.add("magic");
 
             fragment.append(imgTag);
-        })
+        });
+
         divFotos.innerHTML = '';
         divFotos.append(fragment);
-    }
+    };
 
 
     /*Muestra las imagenes que tienen un tag concreto*/
     const mostrarImagenes = async (tag) => {
+
         try {
 
             const arrayImgs = await buscarImgTags(tag);
             crearImagenes(arrayImgs);
 
-            if (arrayImgs.length > 1) {
+            if (arrayImgs.length > 1)
                 pMensaje.innerHTML = `Se encontraron ${arrayImgs.length} imágenes que coinciden con '<span>${tag}</span>'.`
-            } else if (arrayImgs.length == 1) {
+
+            else if (arrayImgs.length == 1)
                 pMensaje.innerHTML = `Se encontró sólo 1 imagen que coincida con '<span>${tag}</span>'.`
-            } else {
+
+            else
                 pMensaje.innerHTML = `Lamentablemente, no se encontró ninguna imagen que coincida con '<span>${tag}</span>'.`
-            }
 
         } catch (error) {
-            alert('ERROR buscarImgTag: ' + error);
-        }
-    }
+
+            console.log('ERROR buscarImgTag: ' + error);
+        };
+    };
 
 
     /*Comienza aquí*/
     const init = async () => {
+
         try {
 
             const arrayTags = await buscarTags();
             crearBotones(arrayTags);
 
         } catch (error) {
-            alert('ERROR INIT: ' + error);
-        }
+
+            console.log('ERROR INIT: ' + error);            
+        };
     };
 
+    
     init();
 
 }) //Load
